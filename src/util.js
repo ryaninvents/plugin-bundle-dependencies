@@ -26,7 +26,7 @@ export function getPackageManagerCommand ({ cwd, options }) {
     }
     return { bin, args };
   }
-  if (hasYarn) {
+  if (hasYarn(cwd)) {
     return { bin: 'yarn', args: [] };
   }
   return { bin: 'npm', args: ['install'] };

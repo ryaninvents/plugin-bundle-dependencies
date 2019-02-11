@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@ryaninvents/plugin-bundle-dependencies should create a zip file with node_modules 1`] = `
+Array [
+  "is-sorted",
+  "is-sorted/.travis.yml",
+  "is-sorted/LICENSE",
+  "is-sorted/README.md",
+  "is-sorted/index.js",
+  "is-sorted/package.json",
+  "is-sorted/test",
+  "is-sorted/test/fixtures.json",
+  "is-sorted/test/index.js",
+  "map-obj",
+  "map-obj/index.js",
+  "map-obj/license",
+  "map-obj/package.json",
+  "map-obj/readme.md",
+]
+`;
