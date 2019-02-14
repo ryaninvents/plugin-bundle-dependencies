@@ -18,3 +18,23 @@ Array [
   "map-obj/readme.md",
 ]
 `;
+
+exports[`@ryaninvents/plugin-bundle-dependencies should observe \`prefix\` option 1`] = `
+Array [
+  "nodejs/node_modules",
+  "nodejs/node_modules/is-sorted",
+  "nodejs/node_modules/is-sorted/.travis.yml",
+  "nodejs/node_modules/is-sorted/LICENSE",
+  "nodejs/node_modules/is-sorted/README.md",
+  "nodejs/node_modules/is-sorted/index.js",
+  "nodejs/node_modules/is-sorted/package.json",
+  "nodejs/node_modules/is-sorted/test",
+  "nodejs/node_modules/is-sorted/test/fixtures.json",
+  "nodejs/node_modules/is-sorted/test/index.js",
+  "nodejs/node_modules/map-obj",
+  "nodejs/node_modules/map-obj/index.js",
+  "nodejs/node_modules/map-obj/license",
+  "nodejs/node_modules/map-obj/package.json",
+  "nodejs/node_modules/map-obj/readme.md",
+]
+`;
