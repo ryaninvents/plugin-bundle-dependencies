@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.1.0...v1.1.1) (2019-02-14)
+
+
+### Bug Fixes
+
+* Prevent non-zero exit code in most cases ([45ec06d](https://github.com/ryaninvents/plugin-bundle-dependencies/commit/45ec06d))
+
 # [1.1.0](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.0.0...v1.1.0) (2019-02-14)
 
 
