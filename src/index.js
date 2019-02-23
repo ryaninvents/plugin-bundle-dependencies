@@ -41,7 +41,7 @@ export async function build ({ cwd, out, manifest, reporter, options }) {
   reporter.created(join(out, ZIP_FILENAME), `zip:dependencies`);
 
   try {
-    await del([join(tempWorkingDir, '*')]);
+    await del([tempWorkingDir]);
   } catch (er) {
     // If this fails, it's not a big deal. We'll likely get a non-zero
     // exit code though
