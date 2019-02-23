@@ -6,6 +6,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "del": "^3.0.0",
     "execa": "^1.0.0",
     "fs-extra": "^7.0.1",
     "gulp": "^4.0.0",
@@ -47,7 +48,6 @@
     "@types/gulp": "^4.0.5",
     "@types/gulp-zip": "^4.0.0",
     "@types/node": "^10.12.24",
-    "del": "^3.0.0",
     "eslint": "^5.13.0",
     "eslint-config-semistandard": "^13.0.0",
     "eslint-config-standard": "^12.0.0",
