@@ -6,6 +6,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@pika/types": "^0.3.1",
     "del": "^3.0.0",
     "execa": "^1.0.0",
     "fs-extra": "^7.0.1",
@@ -38,7 +39,6 @@
     "@pika/pack": "^0.3.1",
     "@pika/plugin-build-node": "^0.3.10",
     "@pika/plugin-standard-pkg": "^0.3.10",
-    "@pika/types": "^0.3.1",
     "@semantic-release/changelog": "^3.0.2",
     "@semantic-release/commit-analyzer": "^6.1.0",
     "@semantic-release/git": "^7.0.8",
