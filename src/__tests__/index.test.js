@@ -139,6 +139,26 @@ describe('@ryaninvents/plugin-bundle-dependencies', () => {
     expect(archiveEntries).toMatchSnapshot();
   }, 60e3);
 
+  it('should not produce ENOTEMPTY error', async () => {
+    const { workingDir } = await initRepo({
+      packageJson: {
+        ...DEFAULT_PKG_JSON,
+        dependencies: {
+          // Use a couple of packages known to basically be one-liners
+          // in order to test quickly
+          'is-sorted': 'latest',
+          'map-obj': 'latest'
+        }
+      },
+      stdio: 'inherit'
+    });
+    const { stderr } = await execa('npm', ['run', 'build'], {
+      env: { NODE_ENV: 'production' },
+      cwd: workingDir
+    });
+    expect(stderr).not.toMatch('ENOTEMPTY');
+  }, 60e3);
+
   it('should observe `prefix` option', async () => {
     const { workingDir } = await initRepo({
       packageJson: {
