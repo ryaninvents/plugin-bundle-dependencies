@@ -38,7 +38,7 @@ export async function createManifest (tempdir, { cwd, manifest }) {
   Object.keys(manifest.dependencies).forEach((pkgName) => {
     const pkgVersion = manifest.dependencies[pkgName];
     if (!pkgVersion.startsWith(LOCAL_PACKAGE_PREFIX)) return;
-    updatedManifest[pkgName] = `${LOCAL_PACKAGE_PREFIX}${resolve(cwd, pkgVersion.slice(LOCAL_PACKAGE_PREFIX.length))}`;
+    updatedManifest.dependencies[pkgName] = `${LOCAL_PACKAGE_PREFIX}${resolve(cwd, pkgVersion.slice(LOCAL_PACKAGE_PREFIX.length))}`;
   });
 
   await fs.writeFile(resolve(tempdir, 'package.json'), JSON.stringify(updatedManifest, null, 2));
