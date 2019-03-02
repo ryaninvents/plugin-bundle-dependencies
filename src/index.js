@@ -40,5 +40,5 @@ export async function build ({ cwd, out, manifest, reporter, options }) {
 
   reporter.created(join(out, ZIP_FILENAME), `zip:dependencies`);
 
-  await del([tempWorkingDir], { force: true });
+  await del([`${tempWorkingDir}/*`], { force: true });
 }
