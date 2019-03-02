@@ -18,7 +18,7 @@
 
 ### Bug Fixes
 
-* Add missing `[@pika](https://github.com/pika)/types` dependency ([ca47327](https://github.com/ryaninvents/plugin-bundle-dependencies/commit/ca47327))
+* Add missing [`@pika/types`](https://github.com/pikapkg/builders/tree/master/packages/types) dependency ([ca47327](https://github.com/ryaninvents/plugin-bundle-dependencies/commit/ca47327))
 
 ## [1.1.3](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.1.2...v1.1.3) (2019-02-23)
 
