@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.1.5...v1.1.6) (2019-03-02)
+
+
+### Bug Fixes
+
+* Allow temp folder cleanup to complete normally ([ca748cf](https://github.com/ryaninvents/plugin-bundle-dependencies/commit/ca748cf))
+
 ## [1.1.5](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.1.4...v1.1.5) (2019-03-02)
 
 
