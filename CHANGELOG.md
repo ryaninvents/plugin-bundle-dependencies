@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.1.6...v1.1.7) (2019-03-13)
+
+
+### Bug Fixes
+
+* Prevent npm from symlinking local packages ([c3ae67e](https://github.com/ryaninvents/plugin-bundle-dependencies/commit/c3ae67e))
+
 ## [1.1.6](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.1.5...v1.1.6) (2019-03-02)
 
 
