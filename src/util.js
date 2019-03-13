@@ -5,6 +5,14 @@ import fs from 'fs-extra';
 
 const LOCAL_PACKAGE_PREFIX = 'file:';
 
+export async function npmPack (pkgPath, workingDir) {
+  const { stdout } = await execa('npm', ['pack', '--json', pkgPath], {
+    cwd: workingDir
+  });
+  const [output] = JSON.parse(stdout);
+  return resolve(workingDir, output.filename);
+}
+
 export function getPackageManagerCommand ({ cwd, options }) {
   if (options.packageManager) {
     const { packageManager } = options;
@@ -34,12 +42,16 @@ export function getPackageManagerCommand ({ cwd, options }) {
 
 export async function createManifest (tempdir, { cwd, manifest }) {
   const updatedManifest = { ...manifest };
+  const originalDeps = manifest.dependencies || {};
+  updatedManifest.dependencies = { ...originalDeps };
 
-  Object.keys(manifest.dependencies).forEach((pkgName) => {
-    const pkgVersion = manifest.dependencies[pkgName];
+  await Promise.all(Object.keys(originalDeps).map(async (pkgName) => {
+    const pkgVersion = originalDeps[pkgName];
     if (!pkgVersion.startsWith(LOCAL_PACKAGE_PREFIX)) return;
-    updatedManifest.dependencies[pkgName] = `${LOCAL_PACKAGE_PREFIX}${resolve(cwd, pkgVersion.slice(LOCAL_PACKAGE_PREFIX.length))}`;
-  });
+    const absolutePath = resolve(cwd, pkgVersion.slice(LOCAL_PACKAGE_PREFIX.length));
+    const bundledAbsolutePath = await npmPack(absolutePath, cwd);
+    updatedManifest.dependencies[pkgName] = `${LOCAL_PACKAGE_PREFIX}${bundledAbsolutePath}`;
+  }));
 
   await fs.writeFile(resolve(tempdir, 'package.json'), JSON.stringify(updatedManifest, null, 2));
 }

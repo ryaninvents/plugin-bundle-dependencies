@@ -107,6 +107,18 @@ describe('@ryaninvents/plugin-bundle-dependencies', () => {
       .not.toThrow();
     const contents = String(await fs.readFile(`${mainProj.workingDir}/node_modules/test-library/index.js`));
     expect(contents).toBe('// Hello world');
+
+    await execa('npm', ['run', 'build'], {
+      env: { NODE_ENV: 'production' },
+      cwd: mainProj.workingDir
+    });
+    const archiveEntries = await new Promise((resolve, reject) => {
+      archive.list(`${mainProj.workingDir}/pkg/dist-dependencies.zip`, (err, results) => {
+        if (err) return reject(err);
+        return resolve(results.map(file => file.getPath()).sort());
+      });
+    });
+    expect(archiveEntries).toMatchSnapshot();
   }, 60e3);
 
   it('should create a zip file with node_modules', async () => {

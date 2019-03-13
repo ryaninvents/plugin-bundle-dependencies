@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`@ryaninvents/plugin-bundle-dependencies should correctly resolve local dependencies 1`] = `
+Array [
+  "test-library",
+  "test-library/index.js",
+  "test-library/package.json",
+  "test-library/src",
+  "test-library/src/index.js",
+]
+`;
+
 exports[`@ryaninvents/plugin-bundle-dependencies should create a zip file with node_modules 1`] = `
 Array [
   "is-sorted",
