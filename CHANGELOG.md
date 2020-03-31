@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.1.8...v2.0.0) (2020-03-31)
+
+
+### Features
+
+* add monorepo compatibility ([f5af141](https://github.com/ryaninvents/plugin-bundle-dependencies/commit/f5af14157f82af51006c2984687e9ac9fab92ab0))
+
+
+### BREAKING CHANGES
+
+* upgraded Pika dependencies. Was going to do this as a separate step, but realized I don't want to maintain an old version
+
 ## [1.1.8](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.1.7...v1.1.8) (2020-03-31)
 
 
