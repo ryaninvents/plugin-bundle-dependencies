@@ -1,3 +1,11 @@
+## [1.1.8](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.1.7...v1.1.8) (2020-03-31)
+
+
+### Bug Fixes
+
+* update dependencies ([dcc0414](https://github.com/ryaninvents/plugin-bundle-dependencies/commit/dcc041490c8dc66646d02cb02676ff7f71620050))
+* update test snap ([57644c3](https://github.com/ryaninvents/plugin-bundle-dependencies/commit/57644c3620900ca93dfce86f4f5d9d3259a51a83))
+
 ## [1.1.7](https://github.com/ryaninvents/plugin-bundle-dependencies/compare/v1.1.6...v1.1.7) (2019-03-13)
 
 
