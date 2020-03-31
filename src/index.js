@@ -12,28 +12,31 @@ import { createManifest, installDependencies } from './util';
 
 const ZIP_FILENAME = 'dist-dependencies.zip';
 
-export async function beforeJob ({ out }) {
+export async function beforeJob({ out }) {
   const srcDirectory = join(out, 'dist-node/');
   if (!fs.existsSync(srcDirectory)) {
     throw new MessageError('"dist-node/" does not exist, or was not yet created in the pipeline.');
   }
 }
 
-export async function build ({ cwd, out, manifest, reporter, options }) {
+export async function build({ cwd, out, manifest, reporter, options }) {
   const { filepath: tempWorkingDir } = createTempDir({ name: 'plugin-bundle-dependencies-{wwwwdddd}' });
-  let { prefix = '/' } = options;
+  let { prefix = '/', packageOverrides = {} } = options;
   if (!prefix.endsWith('/')) prefix = `${prefix}/`;
 
-  await createManifest(tempWorkingDir, { cwd, manifest });
+  await createManifest(tempWorkingDir, { cwd, manifest, packageOverrides });
   await installDependencies(tempWorkingDir, { cwd, options });
 
   await promiseFromObjectStream(
-    gulp.src(join(tempWorkingDir, 'node_modules', '**'), { dot: true, buffer: true })
-      .pipe(rename((path) => {
-        Object.assign(path, {
-          dirname: join(prefix, path.dirname)
-        });
-      }))
+    gulp
+      .src(join(tempWorkingDir, 'node_modules', '**'), { dot: true, buffer: true })
+      .pipe(
+        rename(path => {
+          Object.assign(path, {
+            dirname: join(prefix, path.dirname)
+          });
+        })
+      )
       .pipe(gulpZip(ZIP_FILENAME))
       .pipe(gulp.dest(out))
   );

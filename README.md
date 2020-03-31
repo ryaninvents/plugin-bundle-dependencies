@@ -44,6 +44,7 @@ For more details on setting up Pack, refer to the [@pika/pack repository](https:
 Add a fixed prefix to every file in the ZIP archive. By default, the zip contains exactly what would be installed into the `node_modules` directory -- phrased another way, if you unzipped an archive generated with the default settings, you would create one folder in your working directory for each of your package's dependencies.
 
 > Listing your archive would look something like this:
+>
 > ```
 > $ unzip -Z1 pkg/dist-dependencies.zip
 > express/package.json
@@ -62,15 +63,19 @@ Use the `prefix` option to package all dependencies into a set of nested folders
     "pipeline": [
       ["@pika/plugin-standard-pkg"],
       ["@pika/plugin-build-node"],
-      ["@ryaninvents/plugin-bundle-dependencies", {
-        "prefix": "nodejs/node_modules"
-      }]
+      [
+        "@ryaninvents/plugin-bundle-dependencies",
+        {
+          "prefix": "nodejs/node_modules"
+        }
+      ]
     ]
   }
 }
 ```
 
 > Listing your archive would look something like this:
+>
 > ```
 > $ unzip -Z1 pkg/dist-dependencies.zip
 > nodejs/node_modules/express/package.json
@@ -81,8 +86,40 @@ Use the `prefix` option to package all dependencies into a set of nested folders
 > # ... etc.
 > ```
 
+### `packageOverrides`
+
+Override versions for some packages during the install step.
+
+This plugin requires `file:` version specifications for any local packages, conflicting with Yarn's [expectation of version numbers for local packages](https://classic.yarnpkg.com/en/docs/workspaces/#toc-how-to-use-it). Using `packageOverrides` allows this plugin to handle this situation correctly without trying to re-implement any of Yarn's functionality.
+
+Expects an object where the keys are package names and the values are override versions. The same lookup is used for both `dependencies` and `devDependencies`.
+
+```json
+{
+  "dependencies": {
+    "my-local-package": "0.0.0-semantically-released"
+  },
+  "@pika/pack": {
+    "pipeline": [
+      ["@pika/plugin-standard-pkg"],
+      ["@pika/plugin-build-node"],
+      [
+        "@ryaninvents/plugin-bundle-dependencies",
+        {
+          "packageOverrides": {
+            "my-local-package": "file:../my-local-package"
+          }
+        }
+      ]
+    ]
+  }
+}
+```
+
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)

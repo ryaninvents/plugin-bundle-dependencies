@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`@ryaninvents/plugin-bundle-dependencies should correctly resolve dependency overrides 1`] = `
+Array [
+  "is-sorted",
+  "is-sorted/index.js",
+  "is-sorted/package.json",
+  "is-sorted/src",
+  "is-sorted/src/index.js",
+]
+`;
+
 exports[`@ryaninvents/plugin-bundle-dependencies should correctly resolve local dependencies 1`] = `
 Array [
   "test-library",

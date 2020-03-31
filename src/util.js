@@ -5,7 +5,7 @@ import fs from 'fs-extra';
 
 const LOCAL_PACKAGE_PREFIX = 'file:';
 
-export async function npmPack (pkgPath, workingDir) {
+export async function npmPack(pkgPath, workingDir) {
   const { stdout } = await execa('npm', ['pack', '--json', pkgPath], {
     cwd: workingDir
   });
@@ -13,7 +13,7 @@ export async function npmPack (pkgPath, workingDir) {
   return resolve(workingDir, output.filename);
 }
 
-export function getPackageManagerCommand ({ cwd, options }) {
+export function getPackageManagerCommand({ cwd, options }) {
   if (options.packageManager) {
     const { packageManager } = options;
     if (packageManager === 'npm') {
@@ -28,7 +28,7 @@ export function getPackageManagerCommand ({ cwd, options }) {
     }
     const { args = [] } = packageManager;
     if (args) {
-      if (!Array.isArray(args) || args.some((arg) => typeof arg !== 'string')) {
+      if (!Array.isArray(args) || args.some(arg => typeof arg !== 'string')) {
         errors.push(`Expected \`packageManager.args\` to be an array of arguments`);
       }
     }
@@ -40,23 +40,35 @@ export function getPackageManagerCommand ({ cwd, options }) {
   return { bin: 'npm', args: ['install'] };
 }
 
-export async function createManifest (tempdir, { cwd, manifest }) {
-  const updatedManifest = { ...manifest };
-  const originalDeps = manifest.dependencies || {};
-  updatedManifest.dependencies = { ...originalDeps };
+export async function createManifest(tempdir, { cwd, manifest, packageOverrides }) {
+  const updatedManifest = {
+    ...manifest
+  };
 
-  await Promise.all(Object.keys(originalDeps).map(async (pkgName) => {
-    const pkgVersion = originalDeps[pkgName];
-    if (!pkgVersion.startsWith(LOCAL_PACKAGE_PREFIX)) return;
-    const absolutePath = resolve(cwd, pkgVersion.slice(LOCAL_PACKAGE_PREFIX.length));
-    const bundledAbsolutePath = await npmPack(absolutePath, cwd);
-    updatedManifest.dependencies[pkgName] = `${LOCAL_PACKAGE_PREFIX}${bundledAbsolutePath}`;
-  }));
+  updatedManifest.dependencies = {
+    ...(manifest.dependencies || null)
+  };
+
+  await Promise.all(
+    Object.entries(updatedManifest.dependencies).map(async ([pkgName, originalVersion]) => {
+      let pkgVersion = originalVersion;
+      if (packageOverrides[pkgName]) {
+        pkgVersion = packageOverrides[pkgName];
+      }
+      if (!pkgVersion.startsWith(LOCAL_PACKAGE_PREFIX)) {
+        return;
+      }
+      const absolutePath = resolve(cwd, pkgVersion.slice(LOCAL_PACKAGE_PREFIX.length));
+      const bundledAbsolutePath = await npmPack(absolutePath, cwd);
+      updatedManifest.dependencies[pkgName] = `${LOCAL_PACKAGE_PREFIX}${bundledAbsolutePath}`;
+    })
+  );
 
   await fs.writeFile(resolve(tempdir, 'package.json'), JSON.stringify(updatedManifest, null, 2));
+  return updatedManifest;
 }
 
-export async function installDependencies (tempdir, { cwd, options = {} }) {
+export async function installDependencies(tempdir, { cwd, options = {} }) {
   const { bin, args } = getPackageManagerCommand({ cwd, options });
   const env = {
     NODE_ENV: 'production',
@@ -66,10 +78,10 @@ export async function installDependencies (tempdir, { cwd, options = {} }) {
     await execa(bin, args, {
       cwd: tempdir,
       env,
-      stdio: options.stdio || 'ignore'
+      ...(options.stdio ? { stdio: options.stdio } : null)
     });
   } catch (err) {
-    err.message += `\n${err.stdout}`;
+    err.message += `\n${err.stderr || ''}\n${err.stdout || ''}`;
     throw err;
   }
 }
