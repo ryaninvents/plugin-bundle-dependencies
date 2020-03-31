@@ -72,7 +72,10 @@
           "jest": true
         }
       }
-    ]
+    ],
+    "rules": {
+      "space-before-function-paren": "off"
+    }
   },
   "jest": {
     "roots": [
