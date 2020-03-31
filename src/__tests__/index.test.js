@@ -128,8 +128,8 @@ describe('@ryaninvents/plugin-bundle-dependencies', () => {
         dependencies: {
           // Use a couple of packages known to basically be one-liners
           // in order to test quickly
-          'is-sorted': 'latest',
-          'map-obj': 'latest'
+          'is-sorted': '=1.0.5',
+          'map-obj': '=4.1.0'
         }
       },
       stdio: 'inherit'
@@ -158,8 +158,8 @@ describe('@ryaninvents/plugin-bundle-dependencies', () => {
         dependencies: {
           // Use a couple of packages known to basically be one-liners
           // in order to test quickly
-          'is-sorted': 'latest',
-          'map-obj': 'latest'
+          'is-sorted': '=1.0.5',
+          'map-obj': '=4.1.0'
         }
       },
       stdio: 'inherit'
@@ -178,8 +178,8 @@ describe('@ryaninvents/plugin-bundle-dependencies', () => {
         dependencies: {
           // Use a couple of packages known to basically be one-liners
           // in order to test quickly
-          'is-sorted': 'latest',
-          'map-obj': 'latest'
+          'is-sorted': '=1.0.5',
+          'map-obj': '=4.1.0'
         }
       },
       stdio: 'inherit'
@@ -198,8 +198,8 @@ describe('@ryaninvents/plugin-bundle-dependencies', () => {
         dependencies: {
           // Use a couple of packages known to basically be one-liners
           // in order to test quickly
-          'is-sorted': 'latest',
-          'map-obj': 'latest'
+          'is-sorted': '=1.0.5',
+          'map-obj': '=4.1.0'
         },
         '@pika/pack': {
           'pipeline': [
